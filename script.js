@@ -1,6 +1,7 @@
 let todos = [];
 
 function newTodo() {
+  console.log('newTodo called'); // Перевірка виклику функції
   const todoText = prompt('Введіть нове завдання:');
   if (todoText && todoText.trim() !== '') {
     const newTodo = {
@@ -28,6 +29,7 @@ function renderTodo(todo) {
 }
 
 function render() {
+  console.log('render called'); // Перевірка виклику функції
   list.innerHTML = todos.map(renderTodo).join('');
 }
 
