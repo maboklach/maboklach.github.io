@@ -9,6 +9,7 @@ function newTodo() {
       checked: false
     };
     todos.push(newTodo);
+    console.log(todos); // Перевірка збережених даних
     render();
     updateCounter();
   }
@@ -17,7 +18,7 @@ function newTodo() {
 function renderTodo(todo) {
   return `
     <li class="list-group-item">
-      <input type="checkbox" class="form-check-input me-2" id="${todo.id}" ${todo.checked ? 'checked' : ''} />
+      <input type="checkbox" class="form-check-input me-2" id="${todo.id}" ${todo.checked ? 'checked' : ''} onClick="checkTodo(${todo.id})" />
       <label for="${todo.id}"><span class="${todo.checked ? 'text-success text-decoration-line-through' : ''}">${todo.text}</span></label>
       <button class="btn btn-danger btn-sm float-end" onClick="deleteTodo(${todo.id})">delete</button>
     </li>
