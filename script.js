@@ -2,7 +2,7 @@ let todos = [];
 
 function newTodo() {
   const todoText = prompt('Введіть нове завдання:');
-  if (todoText) {
+  if (todoText && todoText.trim() !== '') {
     const newTodo = {
       id: Date.now(),
       text: todoText,
@@ -12,6 +12,8 @@ function newTodo() {
     console.log(todos); // Перевірка збережених даних
     render();
     updateCounter();
+  } else {
+    alert('Завдання не може бути порожнім!');
   }
 }
 
