@@ -1,64 +1,49 @@
 let todos = [];
 
 function newTodo() {
-    const input = document.getElementById('newTodo');
-    const task = input.value.trim();
-    if (task) {
-        todos.push({ text: task, completed: false });
-        input.value = '';
-        render();
-        updateCounter();
-        saveTodos(); // Зберігаємо дані
-    }
+  const todoText = prompt('Введіть нове завдання:');
+  if (todoText) {
+    const newTodo = {
+      id: Date.now(),
+      text: todoText,
+      checked: false
+    };
+    todos.push(newTodo);
+    render();
+    updateCounter();
+  }
 }
 
-function renderTodo(todo, index) {
-    return `
-        <li class="${todo.completed ? 'completed' : ''}">
-            <input type="checkbox" ${todo.completed ? 'checked' : ''} onclick="checkTodo(${index})">
-            <label>${todo.text}</label>
-            <button onclick="deleteTodo(${index})">Видалити</button>
-        </li>
-    `;
+function renderTodo(todo) {
+  return `
+    <li class="list-group-item">
+      <input type="checkbox" class="form-check-input me-2" id="${todo.id}" ${todo.checked ? 'checked' : ''} />
+      <label for="${todo.id}"><span class="${todo.checked ? 'text-success text-decoration-line-through' : ''}">${todo.text}</span></label>
+      <button class="btn btn-danger btn-sm float-end" onClick="deleteTodo(${todo.id})">delete</button>
+    </li>
+  `;
 }
 
 function render() {
-    const todoList = document.getElementById('todoList');
-    todoList.innerHTML = todos.map((todo, index) => renderTodo(todo, index)).join('');
+  list.innerHTML = todos.map(renderTodo).join('');
 }
 
 function updateCounter() {
-    const totalCount = document.getElementById('totalCount');
-    const pendingCount = document.getElementById('pendingCount');
-    totalCount.textContent = todos.length;
-    pendingCount.textContent = todos.filter(todo => !todo.completed).length;
+  itemCountSpan.textContent = todos.length;
+  uncheckedCountSpan.textContent = todos.filter(todo => !todo.checked).length;
 }
 
-function deleteTodo(index) {
-    todos.splice(index, 1);
+function deleteTodo(id) {
+  todos = todos.filter(todo => todo.id !== id);
+  render();
+  updateCounter();
+}
+
+function checkTodo(id) {
+  const todo = todos.find(todo => todo.id === id);
+  if (todo) {
+    todo.checked = !todo.checked;
     render();
     updateCounter();
-    saveTodos(); // Зберігаємо дані
+  }
 }
-
-function checkTodo(index) {
-    todos[index].completed = !todos[index].completed;
-    render();
-    updateCounter();
-    saveTodos(); // Зберігаємо дані
-}
-
-function saveTodos() {
-    localStorage.setItem('todos', JSON.stringify(todos));
-}
-
-function loadTodos() {
-    const savedTodos = localStorage.getItem('todos');
-    if (savedTodos) {
-        todos = JSON.parse(savedTodos);
-        render();
-        updateCounter();
-    }
-}
-
-window.onload = loadTodos;
