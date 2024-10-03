@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список справ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Список справ</h1>
+        <input type="text" id="newTodo" placeholder="Нове завдання">
+        <button onclick="newTodo()">Додати</button>
+        <ul id="todoList"></ul>
+        <div>
+            <p>Загальна кількість справ: <span id="totalCount">0</span></p>
+            <p>Незроблені справи: <span id="pendingCount">0</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
